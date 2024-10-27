@@ -2,96 +2,176 @@
 #include <stdio.h>
 #define MAX 1024
 #include <stdlib.h> 
+#include <string.h>
 
-typedef struct {
-	
-	char ime[10];
-	char prezime[10];
-	double bodovi;
+typedef struct _struct* position; 
 
-}studenti;
+typedef struct _struct {
 
-int ReadRows(const char* fileopen);
-studenti* zapis(const char* fileopen, int n);
-void ispis(studenti* s, int);
+	char name[50];
+	char lastname[50];
+	int birthYear;
+	position next;
+
+}Person;
+
+int Prependlist(position head, char* name, char* lastname, int by);
+int Appendlist(position head, char* name, char* lastname, int by);
+position Findlast(position head);
+int Insertafter(position pervious, position newPerson);
+position CreatePerson(char* name, char* lastname, int by);
+int printlist(position first); 
+position FindByLastname(position head, char* lastname);
 
 int main() {
-	int numberofrows = 0, i;
-	studenti* s = NULL;
 
-	numberofrows = ReadRows("studenti.txt");
+	Person head = {
+			.name = {0},
+			.lastname = {0},
+			.birthYear = 0,
+			.next = NULL
+	};
+
 	
-	s = zapis("studenti.txt", numberofrows);
-	 
-	if (numberofrows < 0) {
-		printf("Greska u otvaranju datoteke!");
-		return 1;
+	Prependlist(&head, "Ivan", "Ivic", 1983);
+	printlist(head.next); 
+
+	Appendlist(&head, "Matea", "Buric", 2000);
+	printlist(head.next); 
+
+	FindByLastname(head.next, "Buric");
+	printlist(head.next); 
+	
+	return 0; 
+}
+
+
+position CreatePerson(char* name, char* lastname, int by) {
+	
+	position newPerson = NULL;
+
+	newPerson = (position)malloc(sizeof(Person));
+	
+	if (newPerson == NULL) {
+		printf("Error while creating a person!");
+		return NULL;
 	}
 
-	printf("Datoteka ima %d retka.\n", numberofrows); 
+	strcpy(newPerson->name, name);
+	strcpy(newPerson->lastname, lastname);
+	newPerson->birthYear = by; 
+	newPerson->next = NULL;
 
-	ispis(s, numberofrows); 
-	free(s);
 	
+	
+	
+	return newPerson;
+
+}
+
+int Prependlist(position head, char* name, char* lastname, int by) {
+	position newPerson = NULL;
+	newPerson = CreatePerson(name,lastname, by);
+
+	if (newPerson == NULL) {
+		printf("Error occured while creating the person");
+		return EXIT_FAILURE;
+	}
+	
+	newPerson->next = head->next;
+	head->next = newPerson;
+
 	return 0;
 }
 
-int ReadRows(const char* filename) {
-	int numberofrows = 0;
-	FILE* fp = NULL; 
-	char buffer[MAX] = { '\0' };
-	
-	fp = fopen(filename, "r");
-	
-	if (!fp) {
-		return -1;
+int printlist(position first) {
+	position temp = NULL;
+	temp = first;
+
+	printf("\n");
+
+	while (temp != NULL) {
+		printf("%s %s %d\n", temp->name, temp->lastname, temp->birthYear);
+		temp = temp->next;
 	}
 
-	while (!feof(fp)) {
-		fgets(buffer, MAX, fp);
-		numberofrows++;
-	}
-
-	rewind(fp);
-
-	return numberofrows; 
+	
+	
+	return EXIT_SUCCESS;
 }
 
-studenti *zapis(const char* filename, int n) {
-	FILE* fp = NULL;
-	studenti* zapis;
-	int i; 
+int Appendlist(position head, char* name, char* lastname, int by) {
+	 
+	position newPerson = NULL; 
+	position last;
+	newPerson = CreatePerson(name, lastname, by); 
 
-	fp = fopen(filename, "r");
-
-	if (!fp) {
-		return -1;
+	if (newPerson == NULL) { 
+		printf("Error occured while creating the person"); 
+		return EXIT_FAILURE; 
 	}
 
-	zapis = (studenti*)malloc(n * sizeof(studenti)); 
+	last = Findlast(head);
+
+	Insertafter(last, newPerson);  
 	
-	for (i = 0; i < n; i++) {
-		fscanf(fp, "%s %s %lf", zapis[i].ime, zapis[i].prezime, &zapis[i].bodovi); 
-		
-	}
 
-	fclose(fp);
-	return zapis;
-
+	return 0;
 
 }
 
-void ispis(studenti* s, int n) {
-	double* relativno = NULL;
-	int i; 
+position Findlast(position head) {
+	position last = NULL;
 
-	relativno = (double*)malloc(n * sizeof(double));
-	printf("Podaci za studente:\n");
-	for (i = 0; i < n; i++) {
-		relativno[i] = (s[i].bodovi / 50) * 100; 
-		printf("%s %s %0.2lf\n", s[i].ime, s[i].prezime, relativno[i]); 
+	last = head;
 
+	while (last->next != NULL) {
+		last = last->next;
 	}
-	
-	free(relativno);
+
+	return last;
 }
+
+int Insertafter(position pervious, position newPerson) {
+
+	newPerson->next = pervious->next;
+	pervious->next = newPerson;
+
+	return 0;
+
+
+}
+
+position FindByLastname(position head, char* lastname) {
+	position temp = NULL;
+	temp = head;
+
+	while (temp != NULL) {
+		if (strcmp(temp->lastname, lastname) == 0) {
+			return temp;
+		}
+		else {
+			temp = temp->next;
+		}
+		return NULL;
+	}
+}
+
+position findPrevious(position head, char* name) {
+		position current = NULL;
+		current = head;
+		while (current->next != NULL) {
+			if (strcmp((current->next)->name, name) == 0) return current; 
+		}
+		return NULL; 
+}
+
+
+int Delete(position head, char* name) {  
+		position previous = findPrevious(head, name); 
+		position current = previous->next; 
+		previous->next = current->next; 
+		free(current); 
+		return EXIT_SUCCESS; 
+}
+
