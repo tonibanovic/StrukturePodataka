@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\pc servis\\Desktop\\Fakultet\\2. godina\\Strukture podataka\\Project2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2B064ADB-6205-4036-8A78-4AA728817155}|Project2\\Project2.vcxproj|C:\\Users\\pc servis\\Desktop\\Fakultet\\2. godina\\Strukture podataka\\Project2\\Project2\\FileName.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{2B064ADB-6205-4036-8A78-4AA728817155}|Project2\\Project2.vcxproj|solutionrelative:Project2\\FileName.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 100,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FileName.c",
+              "DocumentMoniker": "C:\\Users\\pc servis\\Desktop\\Fakultet\\2. godina\\Strukture podataka\\Project2\\Project2\\FileName.c",
+              "RelativeDocumentMoniker": "Project2\\FileName.c",
+              "ToolTip": "C:\\Users\\pc servis\\Desktop\\Fakultet\\2. godina\\Strukture podataka\\Project2\\Project2\\FileName.c*",
+              "RelativeToolTip": "Project2\\FileName.c*",
+              "ViewState": "AgIAACkAAAAAAAAAAAAhwD8AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-11-03T14:35:05.729Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
