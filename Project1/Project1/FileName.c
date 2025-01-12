@@ -39,6 +39,12 @@ int main() {
 	Appendlist(&head, "Matea", "Buric", 2000);
 	printlist(head.next); 
 
+	Appendlist(&head, "Toni", "Banovic", 2004);
+	printlist(head.next);
+
+	Appendlist(&head, "Andro", "Vukovic", 2004);
+	printlist(head.next);
+
 	FindByLastname(head.next, "Buric");
 	printlist(head.next); 
 	
@@ -161,7 +167,12 @@ position findPrevious(position head, char* name) {
 		position current = NULL;
 		current = head;
 		while (current->next != NULL) {
-			if (strcmp((current->next)->name, name) == 0) return current; 
+			if (strcmp((current->next)->name, name) == 0) {
+				return current;
+			}
+			else {
+				current = current->next;
+			}
 		}
 		return NULL; 
 }

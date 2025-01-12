@@ -10,7 +10,7 @@
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
-      "VerticalTabListWidth": 256,
+      "VerticalTabListWidth": 100,
       "DocumentGroups": [
         {
           "DockedWidth": 200,
@@ -24,7 +24,7 @@
               "RelativeDocumentMoniker": "Project4\\FileName.c",
               "ToolTip": "C:\\Users\\pc servis\\Desktop\\Fakultet\\2. godina\\Strukture podataka\\Project4\\Project4\\FileName.c*",
               "RelativeToolTip": "Project4\\FileName.c*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAKAAAAAAAAAA==",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADgAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-11-11T09:48:39.239Z",
               "EditorCaption": ""

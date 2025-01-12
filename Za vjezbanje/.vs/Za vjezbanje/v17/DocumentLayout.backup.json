@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\pc servis\\Desktop\\Fakultet\\2. godina\\Strukture podataka\\Za vjezbanje\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C8A0D97B-7EB8-4C59-A1A7-96C83B11DB55}|Za vjezbanje\\Za vjezbanje.vcxproj|C:\\Users\\pc servis\\Desktop\\Fakultet\\2. godina\\Strukture podataka\\Za vjezbanje\\Za vjezbanje\\FileName.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{C8A0D97B-7EB8-4C59-A1A7-96C83B11DB55}|Za vjezbanje\\Za vjezbanje.vcxproj|solutionrelative:Za vjezbanje\\FileName.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 100,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "FileName.c",
+              "DocumentMoniker": "C:\\Users\\pc servis\\Desktop\\Fakultet\\2. godina\\Strukture podataka\\Za vjezbanje\\Za vjezbanje\\FileName.c",
+              "RelativeDocumentMoniker": "Za vjezbanje\\FileName.c",
+              "ToolTip": "C:\\Users\\pc servis\\Desktop\\Fakultet\\2. godina\\Strukture podataka\\Za vjezbanje\\Za vjezbanje\\FileName.c*",
+              "RelativeToolTip": "Za vjezbanje\\FileName.c*",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAADgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-10-24T20:13:02.574Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,135 +1,179 @@
 #define _CRT_SECURE_NO_WARNINGS 
 #include <stdio.h>
 #include <stdlib.h>
+#include "time.h"
+struct node;
 
-struct Pol;
 
-typedef struct pol* Polynom;
-typedef struct pol {
-    int Coeff;  
-    int Exp;    
-    Polynom Next;
-} Polynomal;
+typedef struct node* position;
+typedef struct node {
 
-void ReadPolynom(Polynom* p, char* ime_dat);
-void PrintPolynomial(Polynom p);
-void AddPolynoms(Polynom* p1, Polynom p2);
-void MultiplyPolynoms(Polynom* p1, Polynom p2);
-void InsertInOrder(Polynom* p, int coeff, int exp);
+	int value;
+	position right;
+	position left;
+
+} Node;
+
+position CreateNode(int value); 
+position insert(position root, int value);
+int inorder(position root);
+int preorder(position root);
+int postorder(position root);
+position search(position root, int value);
+position deleteNode(position root, int value);
 
 int main() {
-    Polynom P1 = NULL, P2 = NULL;
+	position root = NULL;
+	int n, i, a, value, d, b; 
 
-    ReadPolynom(&P1, "Polinomi1.txt");
-    ReadPolynom(&P2, "Polinomi2.txt");
+	printf("Unesite vrijednost korijena stabla: ");
+	scanf("%d", &n);
+	root = CreateNode(n);
 
-    printf("Polinom 1:\n");
-    PrintPolynomial(P1);
+	printf("Unesite koliko zelite elemenata u stablu: ");
+	scanf("%d", &a);
+	
+	printf("Unesite elemente stabla: ");
+	for (i = 0; i < a; i++) {
+		scanf("%d", &value);
+		insert(root, value);
+	}
 
-    printf("Polinom 2:\n");
-    PrintPolynomial(P2);
+	inorder(root);
+	printf("\n");
+	preorder(root);
+	printf("\n");
+	postorder(root);
+	printf("\n");
 
-    AddPolynoms(&P1, P2);  
-    printf("\nPolinom 1 + Polinom 2:\n");
-    PrintPolynomial(P1);
+	printf("Unesie koji element zelite pronaci: ");
+	scanf("%d", &d);
 
-    MultiplyPolynoms(&P1, P2); 
-    printf("\nPolinom 1 * Polinom 2:\n");
-    PrintPolynomial(P1);
+	search(root, d);
 
-    return 0;
+	printf("Unesie koji element zelite izbrisati: ");
+	scanf("%d", &b);
+	deleteNode(root, b);
+	inorder(root);
+	
+	
+
+	return 0;
+
 }
 
+position CreateNode(int value) {
+	position newNode = NULL;
+	newNode = (position)malloc(sizeof(Node));
 
-void ReadPolynom(Polynom* p, char* ime_dat) {
-    FILE* file = fopen(ime_dat, "r");
-    if (file == NULL) {
-        printf("Error while opening the file\n");
-        return;
-    }
+	if (!newNode) {
+		printf("Can't allocate memory");
+		return NULL;
+	}
 
-    int coeff, exp;
-    while (fscanf(file, "%d %d", &coeff, &exp) == 2) {
-        InsertInOrder(p, coeff, exp);
-    }
+	newNode->value = value;
+	newNode->left = NULL;
+	newNode->right = NULL;
 
-    fclose(file);
+	return newNode;
+
 }
 
+position insert(position root, int value) {
+	if (root == NULL)
+		return CreateNode(value);
 
-void InsertInOrder(Polynom* p, int coeff, int exp) {
-    Polynom newNode = (Polynom)malloc(sizeof(Polynomal));
-    newNode->Coeff = coeff;
-    newNode->Exp = exp;
-    newNode->Next = NULL;
 
-    if (*p == NULL || (*p)->Exp < exp) {
-        
-        newNode->Next = *p;
-        *p = newNode;
-    }
-    else {
-       
-        Polynom temp = *p;
-        while (temp->Next != NULL && temp->Next->Exp > exp) {
-            temp = temp->Next;
-        }
+	if (value < root->value) { 
+		root->left = insert(root->left, value); 
+		
+	}
+	else {
+		root->right = insert(root->right, value);
+		
+	}
 
-       
-        if (temp->Next != NULL && temp->Next->Exp == exp) {
-            temp->Next->Coeff += coeff;
-            free(newNode);  
-        }
-        else {
-            newNode->Next = temp->Next;
-            temp->Next = newNode;
-        }
-    }
+	return root;
 }
 
+int inorder(position root) {
+	if (root) {
+		inorder(root->left);
+		printf("%d ", root->value);
+		inorder(root->right);
+	}
 
-void PrintPolynomial(Polynom p) {
-    if (p == NULL) {
-        printf("Polinom je prazan\n");
-        return;
-    }
-
-    while (p != NULL) {
-        if (p->Coeff > 0 && p != p) {
-            printf("+%d*x^%d ", p->Coeff, p->Exp);
-        }
-        else {
-            printf("%d*x^%d ", p->Coeff, p->Exp);
-        }
-        p = p->Next;
-    }
-    printf("\n");
+	return EXIT_SUCCESS;
+ 
 }
 
+int preorder(position root) {
 
-void AddPolynoms(Polynom* p1, Polynom p2) {
-    Polynom temp = p2;
-    while (temp != NULL) {
-        InsertInOrder(p1, temp->Coeff, temp->Exp);
-        temp = temp->Next;
-    }
+	if (root) {
+		printf("%d ", root->value);
+		preorder(root->left);
+		preorder(root->right);
+
+	}
+
+	return EXIT_SUCCESS;
 }
 
+int postorder(position root) {
 
-void MultiplyPolynoms(Polynom* p1, Polynom p2) {
-    Polynom result = NULL, temp1 = *p1, temp2;
+	if (root) {
+		postorder(root->left);
+		postorder(root->right);
+		printf("%d ", root->value);
+	}
 
-    while (temp1 != NULL) {
-        temp2 = p2;
-        while (temp2 != NULL) {
-            int newCoeff = temp1->Coeff * temp2->Coeff;
-            int newExp = temp1->Exp + temp2->Exp;
-            InsertInOrder(&result, newCoeff, newExp);
-            temp2 = temp2->Next;
-        }
-        temp1 = temp1->Next;
-    }
+	return EXIT_SUCCESS;
+}
 
-   
-    *p1 = result;
+position search(position root, int value) {
+
+	if (root == NULL || root->value == value) {
+		return root; 
+	}
+
+	if (value < root->value) {
+		return search(root->left, value);
+	}
+
+	return search(root->right, value);
+
+}
+
+position deleteNode(position root, int value) {
+	position temp = NULL; 
+
+	if (value < root->value) {
+		root->left = deleteNode(root->left, value);
+	}
+	else if (value > root->value) {
+		root->right = deleteNode(root->right, value);
+	}
+	else {
+		if (root->left == NULL) {
+			position temp = root->right;
+			free(root);
+			return temp;
+		}
+		else if (root->right == NULL) {
+			position temp = root->left;
+			free(root);
+			return temp;
+		}
+
+	}
+
+	temp = root->right;
+	while (temp->left != NULL)
+		temp = temp->left;
+
+	root->value = temp->value;
+
+	root->right = deleteNode(root->right, temp->value);
+
+	return root; 
 }
